@@ -1,8 +1,10 @@
 package com.treinamento.crud.models.table;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.treinamento.crud.models.dto.AllData;
 import com.treinamento.crud.models.dto.CustomerDto;
 
 import jakarta.persistence.CascadeType;
@@ -41,14 +43,26 @@ public class Customer {
     @Column(length = 24)
     private String email;
 
+    @Column(length = 10)
+    private String dataNascimento;
+
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Endereco> endereco;
+    private List<Endereco> endereco = new ArrayList<Endereco>();
 
     public Customer(CustomerDto dto){
         this.cpf = dto.getCpf();
         this.nome = dto.getNome();
         this.email = dto.getEmail();
         this.telefone = dto.getTelefone();
+    }
+
+    public Customer(AllData allData, Endereco endereco){
+        this.nome = allData.getName();
+        this.cpf = allData.getCpf();
+        this.email = allData.getEmail();
+        this.dataNascimento = allData.getBornData();
+        this.endereco.add(endereco);
     }
 
     public void atualizar(CustomerDto customerDto) {

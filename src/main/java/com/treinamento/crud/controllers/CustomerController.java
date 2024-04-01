@@ -1,6 +1,7 @@
 package com.treinamento.crud.controllers;
 
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.treinamento.crud.models.dto.AllData;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.service.CustomerService;
 
@@ -25,6 +27,12 @@ public class CustomerController {
     @PostMapping
     public void cadastrarCliente(@RequestBody CustomerDto customerDto){
         customerService.save(customerDto);
+    }
+
+    @CrossOrigin("http://localhost:4200/header")
+    @PostMapping("/AllDataCustomer")
+    public void enviarTodosDados(@RequestBody AllData allData) {
+        customerService.saveAll(allData);
     }
 
     @DeleteMapping("{id}") 

@@ -20,10 +20,10 @@ public class EnderecoService {
     public void save(EnderecoDto enderecoDto) {
         Customer customer = customerRepository.getReferenceById(enderecoDto.getIdCliente());
         Endereco endereco = new Endereco(enderecoDto, customer);
-        // System.out.println("O id É:" + enderecoDto.getIdCliente());
         enderecoRepository.save(endereco);
         customer.getEndereco().add(endereco);
     }
+
 
     public void delete(Long id) {
         enderecoRepository.deleteById(id);

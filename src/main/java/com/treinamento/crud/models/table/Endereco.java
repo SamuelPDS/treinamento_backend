@@ -1,5 +1,6 @@
 package com.treinamento.crud.models.table;
 
+import com.treinamento.crud.models.dto.AllData;
 import com.treinamento.crud.models.dto.EnderecoDto;
 
 import jakarta.persistence.Column;
@@ -26,14 +27,24 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column (length = 12)
+    private String cep;
+
     @Column(length = 64)
     private String nomeRua;
+
+    @Column(length = 5)
+    private int numeroRua;
 
     @Column(length = 6)
     private int numero;
     
     @Column(length = 64) 
     private String nomeBairro;
+
+    @Column(length = 24)
+    private String complemento;
+
 
     @ManyToOne
     @JoinColumn(name = "idCliente")
@@ -53,6 +64,13 @@ public class Endereco {
         this.customer = customer;
     }
 
+    public Endereco(AllData allData) {
+        this.cep = allData.getCep();
+        this.nomeRua = allData.getStreet();
+        this.numeroRua = allData.getStreetNum();
+        this.nomeBairro = allData.getBairro();
+        this.complemento = allData.getComplemento();
+    }
 
     public void update(EnderecoDto enderecoDto) {
         if(enderecoDto.getNomeRua() != null)
