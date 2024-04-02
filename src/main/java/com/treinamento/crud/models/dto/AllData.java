@@ -1,5 +1,9 @@
 package com.treinamento.crud.models.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -9,14 +13,32 @@ import lombok.Setter;
 @Setter
 public class AllData {
     private Long id;
-    private String name;
+
+    @NotBlank(message = "Name is mandatory")
+    private String nome;
+
+    @NotBlank(message = "cpf is mandatory")
     private String cpf;
+
+    @Email(message = "Email is mandatory")
     private String email;
+
+    @NotBlank(message = "Born Data is mandatory")
     private String bornData;
+
+    @NotBlank(message = "CEP is mandatory")
     private String cep;
+
+    @NotBlank(message = "Street Name is mandatory")
     private String street;
+
+    @NotNull(message = "Street Num is mandatory")
+    @Min(1)
     private int streetNum;
+
+    @NotBlank(message = "Neighborhood is mandatory")
     private String bairro;
+
     private String complemento;
     
 }
