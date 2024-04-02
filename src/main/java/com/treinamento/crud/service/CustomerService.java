@@ -9,8 +9,6 @@ import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.models.table.Endereco;
 import com.treinamento.crud.repository.CustomerRepository;
-import com.treinamento.crud.repository.EnderecoRepository;
-
 import lombok.AllArgsConstructor;
 
 @Service
@@ -37,8 +35,9 @@ public class CustomerService {
         return customerRepository.getReferenceById(id);
     }
 
-    public List<Customer> findAll(AllData allData){
-        return customerRepository.findAllByName(allData.getName());
+    public List<Customer> findAll(CustomerDto customerDto){
+        System.out.println(customerRepository.findAllByNome(customerDto.getNome()));
+        return customerRepository.findAllByNome(customerDto.getNome());
     }
 
     public void update(CustomerDto customerDto) {
@@ -46,7 +45,6 @@ public class CustomerService {
         customer.atualizar(customerDto);               
     
        Customer cpfCliente = customerRepository.findByCpf(customerDto.getCpf());
-        System.out.println(cpfCliente.getCpf());
     }
     
 

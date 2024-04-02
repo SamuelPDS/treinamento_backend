@@ -20,6 +20,8 @@ import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.service.CustomerService;
 
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -33,9 +35,10 @@ public class CustomerController {
         customerService.save(customerDto);
     }
 
+    
     @CrossOrigin("http://localhost:4200")
     @PostMapping("/AllDataCustomer")
-    public ResponseEntity<AllData> enviarTodosDados(@RequestBody AllData allData) {
+    public ResponseEntity<AllData> enviarTodosDados(@Valid @RequestBody AllData allData) {
         customerService.saveAll(allData);
         return ResponseEntity.ok(allData);
     }
@@ -52,8 +55,10 @@ public class CustomerController {
     }
 
     @GetMapping()
-    public void buscarClientes(@RequestBody AllData allData) {
-      List<Customer> customer = customerService.findAll(allData);  
+    public ResponseEntity<List<CustomerDto>> buscarClientes(@RequestBody CustomerDto customerDto) {
+      List<Customer> customerList = customerService.findAll(customerDto); 
+      System.out.println(ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList()));
+      return ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList());
     }
 
     @PutMapping
