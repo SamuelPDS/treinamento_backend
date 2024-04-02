@@ -1,6 +1,9 @@
 package com.treinamento.crud.controllers;
 
 
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.treinamento.crud.models.dto.AllData;
 import com.treinamento.crud.models.dto.CustomerDto;
+import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.service.CustomerService;
 
 import jakarta.transaction.Transactional;
@@ -29,10 +33,11 @@ public class CustomerController {
         customerService.save(customerDto);
     }
 
-    @CrossOrigin("http://localhost:4200/header")
+    @CrossOrigin("http://localhost:4200")
     @PostMapping("/AllDataCustomer")
-    public void enviarTodosDados(@RequestBody AllData allData) {
+    public ResponseEntity<AllData> enviarTodosDados(@RequestBody AllData allData) {
         customerService.saveAll(allData);
+        return ResponseEntity.ok(allData);
     }
 
     @DeleteMapping("{id}") 
@@ -44,6 +49,11 @@ public class CustomerController {
     public CustomerDto buscarCliente(@PathVariable Long id){
       var customer = customerService.find(id);
       return new CustomerDto(customer);
+    }
+
+    @GetMapping()
+    public void buscarClientes(@RequestBody AllData allData) {
+      List<Customer> customer = customerService.findAll(allData);  
     }
 
     @PutMapping

@@ -1,5 +1,6 @@
 package com.treinamento.crud.service;
 
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
-    private final EnderecoRepository enderecoRepository;
-
     public void save(CustomerDto dto){
         Customer customer = new Customer(dto);
         customerRepository.save(customer);
@@ -36,6 +35,10 @@ public class CustomerService {
 
     public Customer find(Long id) {
         return customerRepository.getReferenceById(id);
+    }
+
+    public List<Customer> findAll(AllData allData){
+        return customerRepository.findAllByName(allData.getName());
     }
 
     public void update(CustomerDto customerDto) {

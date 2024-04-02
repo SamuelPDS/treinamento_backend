@@ -1,5 +1,8 @@
 package com.treinamento.crud.repository;
 
+
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,4 +14,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Customer.List<Customer> findById(Long id);
     @Query
     Customer findByCpf(String cpf);
+
+    @Query
+    List<Customer> findAllByName(String nome);
+
 }
