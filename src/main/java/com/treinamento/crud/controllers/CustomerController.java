@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.treinamento.crud.models.dto.AllData;
+import com.treinamento.crud.models.dto.ClientNameDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.service.CustomerService;
@@ -54,11 +55,18 @@ public class CustomerController {
       return new CustomerDto(customer);
     }
 
-    @GetMapping()
-    public ResponseEntity<List<CustomerDto>> buscarClientes(@RequestBody CustomerDto customerDto) {
-      List<Customer> customerList = customerService.findAll(customerDto); 
-      System.out.println(ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList()));
-      return ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList());
+    //@GetMapping()
+  //  public ResponseEntity<List<CustomerDto>> buscarClientes(@RequestBody CustomerDto customerDto) {
+     // List<Customer> customerList = customerService.findAll(customerDto); 
+    //  System.out.println(ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList()));
+    //  return ResponseEntity.ok(customerList.stream().map(CustomerDto:: new).toList());
+   // }
+
+    @GetMapping("/AllDataCustomer/{name}")
+    @CrossOrigin
+    public ResponseEntity<List<CustomerDto>> buscarClientPeloNome(@PathVariable String name) {
+      List<Customer> list = customerService.findAll(name);
+      return ResponseEntity.ok(list.stream().map(CustomerDto:: new).toList());
     }
 
     @PutMapping
