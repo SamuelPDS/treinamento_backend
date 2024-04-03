@@ -37,9 +37,10 @@ public class CustomerController {
     }
 
     
-    @CrossOrigin("http://localhost:4200")
+    @CrossOrigin("http://localhost:4200/")
     @PostMapping("/AllDataCustomer")
     public ResponseEntity<AllData> enviarTodosDados(@Valid @RequestBody AllData allData) {
+        System.out.println(allData);
         customerService.saveAll(allData);
         return ResponseEntity.ok(allData);
     }
@@ -64,9 +65,9 @@ public class CustomerController {
 
     @GetMapping("/AllDataCustomer/{name}")
     @CrossOrigin
-    public ResponseEntity<List<CustomerDto>> buscarClientPeloNome(@PathVariable String name) {
+    public ResponseEntity<List<AllData>> buscarClientPeloNome(@PathVariable String name) {
       List<Customer> list = customerService.findAll(name);
-      return ResponseEntity.ok(list.stream().map(CustomerDto:: new).toList());
+      return ResponseEntity.ok(list.stream().map(AllData:: new).toList());
     }
 
     @PutMapping

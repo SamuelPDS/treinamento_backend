@@ -42,7 +42,7 @@ public class CustomerService {
     }
 
     public List<Customer> findAllByName(AllData allData) {
-        return customerRepository.findAllByNome(allData.getNome());
+        return customerRepository.findAllByNome(allData.getName());
     }
 
     public void update(CustomerDto customerDto) {

@@ -17,7 +17,7 @@ public class AllData {
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
-    private String nome;
+    private String name;
 
     @NotBlank(message = "cpf is mandatory")
     private String cpf;
@@ -45,6 +45,7 @@ public class AllData {
 
 
     public AllData(Customer customer) {
+        this.name = customer.getNome();
         this.cep = customer.getEndereco().get(0).getCep();
         this.street = customer.getEndereco().get(0).getNomeRua();
         this.streetNum = customer.getEndereco().get(0).getNumero();

@@ -42,7 +42,6 @@ public class Customer {
     private String telefone;
 
     @Column(length = 24)
-    @NotBlank(message = "Email is mandatory")
     private String email;
 
     @Column(length = 10)
@@ -54,13 +53,13 @@ public class Customer {
 
     public Customer(CustomerDto dto){
         this.cpf = dto.getCpf();
-        this.nome = dto.getEmail();
+        this.nome = dto.getNome();
         this.email = dto.getEmail();
         this.telefone = dto.getTelefone();
     }
 
     public Customer(AllData allData, Endereco endereco){
-        this.nome = allData.getNome();
+        this.nome = allData.getName();
         this.cpf = allData.getCpf();
         this.email = allData.getEmail();
         this.dataNascimento = allData.getBornData();
