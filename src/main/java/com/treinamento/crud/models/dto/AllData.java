@@ -45,7 +45,6 @@ public class AllData {
 
 
     public AllData(Customer customer) {
-        this.name = customer.getNome();
         this.cep = customer.getEndereco().get(0).getCep();
         this.street = customer.getEndereco().get(0).getNomeRua();
         this.streetNum = customer.getEndereco().get(0).getNumero();
