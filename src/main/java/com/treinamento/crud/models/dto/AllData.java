@@ -1,5 +1,8 @@
 package com.treinamento.crud.models.dto;
 
+import com.treinamento.crud.models.table.Customer;
+import com.treinamento.crud.models.table.Endereco;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -41,4 +44,16 @@ public class AllData {
 
     private String complemento;
     
+
+        public AllData(Customer customer, Endereco endereco){
+        this.nome = customer.getNome();
+        this.cpf = customer.getCpf();
+        this.email = customer.getEmail();
+        this.bornData = customer.getDataNascimento();
+        this.cep = endereco.getCep();
+        this.street = endereco.getNomeRua();
+        this.streetNum = endereco.getNumeroRua();
+        this.bairro = endereco.getNomeBairro();
+        this.complemento = endereco.getComplemento();
+    }
 }

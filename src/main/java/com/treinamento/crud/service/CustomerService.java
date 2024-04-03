@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.treinamento.crud.models.dto.AllData;
+import com.treinamento.crud.models.dto.ClientNameDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.models.table.Endereco;
@@ -35,15 +36,18 @@ public class CustomerService {
         return customerRepository.getReferenceById(id);
     }
 
-    public List<Customer> findAll(CustomerDto customerDto){
-        System.out.println(customerRepository.findAllByNome(customerDto.getNome()));
-        return customerRepository.findAllByNome(customerDto.getNome());
+    public List<Customer> findAll(String name){
+        System.out.println(customerRepository.findAllByNome(name));
+        return customerRepository.findAllByNome(name);
+    }
+
+    public List<Customer> findAllByName(AllData allData) {
+        return customerRepository.findAllByNome(allData.getNome());
     }
 
     public void update(CustomerDto customerDto) {
         Customer customer = customerRepository.getReferenceById(customerDto.getId());
         customer.atualizar(customerDto);               
-    
        Customer cpfCliente = customerRepository.findByCpf(customerDto.getCpf());
     }
     
