@@ -47,7 +47,7 @@ public class Endereco {
 
 
     @ManyToOne
-    @JoinColumn(name = "idCliente")
+    @JoinColumn(name = "id_cliente")
     private Customer customer;
 
 
@@ -64,22 +64,23 @@ public class Endereco {
         this.customer = customer;
     }
 
-    public Endereco(AllData allData) {
+    public Endereco(Customer customer, AllData allData) {
         this.cep = allData.getCep();
         this.nomeRua = allData.getStreet();
         this.numeroRua = allData.getStreetNum();
         this.nomeBairro = allData.getBairro();
         this.complemento = allData.getComplemento();
+        this.customer = customer;
     }
 
     public void update(EnderecoDto enderecoDto) {
-        if(enderecoDto.getNomeRua() != null)
+       // if(enderecoDto.getNomeRua() != null)
         this.nomeRua = enderecoDto.getNomeRua();
         
-        if(enderecoDto.getNumero() >= 0)
+      //  if(enderecoDto.getNumero() >= 0)
         this.numero = enderecoDto.getNumero();
         
-        if(enderecoDto.getNomeBairro() != null)
+       // if(enderecoDto.getNomeBairro() != null)
         this.nomeBairro = enderecoDto.getNomeBairro();
     }
 }

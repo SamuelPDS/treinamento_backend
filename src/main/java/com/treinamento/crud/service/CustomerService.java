@@ -10,6 +10,8 @@ import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.models.table.Endereco;
 import com.treinamento.crud.repository.CustomerRepository;
+import com.treinamento.crud.repository.EnderecoRepository;
+
 import lombok.AllArgsConstructor;
 
 @Service
@@ -22,10 +24,8 @@ public class CustomerService {
     }
 
     public void saveAll(AllData allData) {
-        Endereco endereco = new Endereco(allData);
-        Customer customer = new Customer(allData, endereco);
+        Customer customer = new Customer(allData);
         customerRepository.save(customer);
-
     }
     
     public void delete(Long id) {

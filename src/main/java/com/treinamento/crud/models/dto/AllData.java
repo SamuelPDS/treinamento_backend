@@ -16,6 +16,8 @@ import lombok.Setter;
 public class AllData {
     private Long id;
 
+    private Long idCliente;  
+
     @NotBlank(message = "Name is mandatory")
     private String name;
 
@@ -45,10 +47,15 @@ public class AllData {
 
 
     public AllData(Customer customer) {
-        this.cep = customer.getEndereco().get(0).getCep();
-        this.street = customer.getEndereco().get(0).getNomeRua();
-        this.streetNum = customer.getEndereco().get(0).getNumero();
-        this.bairro = customer.getEndereco().get(0).getNomeBairro();
-        this.complemento = customer.getEndereco().get(0).getComplemento();
+        this.name = customer.getNome();
+        this.email = customer.getEmail();
+        this.bornData = customer.
+        if(!customer.getEndereco().isEmpty()) {
+            this.cep = customer.getEndereco().get(0).getCep();
+            this.street = customer.getEndereco().get(0).getNomeRua();
+            this.streetNum = customer.getEndereco().get(0).getNumero();
+            this.bairro = customer.getEndereco().get(0).getNomeBairro();
+            this.complemento = customer.getEndereco().get(0).getComplemento();
+        }
     }
 }

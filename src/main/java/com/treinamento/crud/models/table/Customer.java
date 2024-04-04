@@ -15,6 +15,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +23,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="customers")
+@Table(name="customers", uniqueConstraints = {@UniqueConstraint(columnNames = {"cpf"})})
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,7 +33,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 11)
+    @Column(length = 11, unique=true) //, unique=true
     private String cpf;
 
     @Column(length = 64)
@@ -58,12 +59,20 @@ public class Customer {
         this.telefone = dto.getTelefone();
     }
 
-    public Customer(AllData allData, Endereco endereco){
+    // public Customer(AllData allData, Endereco endereco){
+    //     this.nome = allData.getName();
+    //     this.cpf = allData.getCpf();
+    //     this.email = allData.getEmail();
+    //     this.dataNascimento = allData.getBornData();
+    //     this.endereco.add(endereco);
+    // }
+
+    public Customer(AllData allData) {
         this.nome = allData.getName();
         this.cpf = allData.getCpf();
         this.email = allData.getEmail();
-        this.dataNascimento = allData.getBornData();
-        this.endereco.add(endereco);
+        this.dataNascimento = allData.getBornData(); 
+        this.endereco.add(new Endereco(this, allData));
     }
 
     public void atualizar(CustomerDto customerDto) {

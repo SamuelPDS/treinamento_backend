@@ -15,14 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.treinamento.crud.models.dto.AllData;
-import com.treinamento.crud.models.dto.ClientNameDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.service.CustomerService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -40,9 +38,8 @@ public class CustomerController {
     @CrossOrigin("http://localhost:4200/")
     @PostMapping("/AllDataCustomer")
     public ResponseEntity<AllData> enviarTodosDados(@Valid @RequestBody AllData allData) {
-        System.out.println(allData);
-        customerService.saveAll(allData);
-        return ResponseEntity.ok(allData);
+      customerService.saveAll(allData);
+      return ResponseEntity.ok(allData);
     }
 
     @DeleteMapping("{id}") 
