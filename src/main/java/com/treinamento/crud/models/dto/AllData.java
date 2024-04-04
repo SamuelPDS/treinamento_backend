@@ -45,11 +45,11 @@ public class AllData {
 
     private String complemento;
 
-
     public AllData(Customer customer) {
         this.name = customer.getNome();
         this.email = customer.getEmail();
-        this.bornData = customer.
+        this.bornData = customer.getDataNascimento();
+        this.cpf = customer.getCpf();
         if(!customer.getEndereco().isEmpty()) {
             this.cep = customer.getEndereco().get(0).getCep();
             this.street = customer.getEndereco().get(0).getNomeRua();
