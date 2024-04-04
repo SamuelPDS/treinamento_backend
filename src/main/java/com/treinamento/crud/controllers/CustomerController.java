@@ -47,6 +47,13 @@ public class CustomerController {
             customerService.delete(id);
     }
 
+    @CrossOrigin
+    @Transactional
+    @DeleteMapping("/AllDataCustomer/{cpf}")
+        public void deletarClienteFront(@PathVariable String cpf) {
+        customerService.deleteClient(cpf);
+    }
+
     @GetMapping("{id}")
     public CustomerDto buscarCliente(@PathVariable Long id){
       var customer = customerService.find(id);

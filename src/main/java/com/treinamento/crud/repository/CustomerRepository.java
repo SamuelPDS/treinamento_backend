@@ -14,8 +14,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Customer.List<Customer> findById(Long id);
     @Query
     Customer findByCpf(String cpf);
-
    
     List<Customer> findAllByNome(String nome);
+
+    String deleteByCpf(String cpf);
 
 }

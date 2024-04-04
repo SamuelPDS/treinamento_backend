@@ -32,12 +32,16 @@ public class CustomerService {
         customerRepository.deleteById(id);
     }
 
+    public void deleteClient(String cpf) {
+        customerRepository.deleteByCpf(cpf);
+    }
+
     public Customer find(Long id) {
         return customerRepository.getReferenceById(id);
     }
 
     public List<Customer> findAll(String name){
-        System.out.println(customerRepository.findAllByNome(name));
+//        System.out.println(customerRepository.findAllByNome(name));
         return customerRepository.findAllByNome(name);
     }
 
