@@ -14,32 +14,22 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AllData {
-    private Long id;
 
-    private Long idCliente;  
-
-    @NotBlank(message = "Name is mandatory")
     private String name;
 
     @NotBlank(message = "cpf is mandatory")
     private String cpf;
-
     @Email(message = "Email is mandatory")
     private String email;
-
     @NotBlank(message = "Born Data is mandatory")
     private String bornData;
-
     @NotBlank(message = "CEP is mandatory")
     private String cep;
-
     @NotBlank(message = "Street Name is mandatory")
     private String street;
-
     @NotNull(message = "Street Num is mandatory")
     @Min(1)
     private int streetNum;
-
     @NotBlank(message = "Neighborhood is mandatory")
     private String bairro;
 
