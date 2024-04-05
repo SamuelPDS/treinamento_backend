@@ -1,23 +1,22 @@
 package com.treinamento.crud.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.treinamento.crud.models.dto.AllData;
-import com.treinamento.crud.models.dto.ClientNameDTO;
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.models.table.Endereco;
 import com.treinamento.crud.repository.CustomerRepository;
 import com.treinamento.crud.repository.EnderecoRepository;
-
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CustomerService {
     private final CustomerRepository customerRepository;
+    private final EnderecoRepository enderecoRepository;
     public void save(CustomerDto dto){
         Customer customer = new Customer(dto);
         customerRepository.save(customer);
@@ -53,6 +52,16 @@ public class CustomerService {
         Customer customer = customerRepository.getReferenceById(customerDto.getId());
         customer.atualizar(customerDto);               
        Customer cpfCliente = customerRepository.findByCpf(customerDto.getCpf());
+    }
+
+    public void updateFrontend(String cpf, ClientPutDTO clientPutDTO){
+        Customer customer = customerRepository.findByCpf(cpf);
+        customer.atualizarFrontend(clientPutDTO);
+
+        if(!customer.getEndereco().isEmpty()) {
+            Endereco endereco = enderecoRepository.getReferenceById(customer.getEndereco().get(0).getId());
+            endereco.update(clientPutDTO);
+        }
     }
     
 
