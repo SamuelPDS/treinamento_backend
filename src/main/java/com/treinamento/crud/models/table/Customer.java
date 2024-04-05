@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.treinamento.crud.models.dto.AllData;
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 
 import jakarta.persistence.CascadeType;
@@ -48,7 +49,6 @@ public class Customer {
     @Column(length = 10)
     private String dataNascimento;
 
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Endereco> endereco = new ArrayList<Endereco>();
 
@@ -59,13 +59,6 @@ public class Customer {
         this.telefone = dto.getTelefone();
     }
 
-    // public Customer(AllData allData, Endereco endereco){
-    //     this.nome = allData.getName();
-    //     this.cpf = allData.getCpf();
-    //     this.email = allData.getEmail();
-    //     this.dataNascimento = allData.getBornData();
-    //     this.endereco.add(endereco);
-    // }
 
     public Customer(AllData allData) {
         this.nome = allData.getName();
@@ -73,6 +66,21 @@ public class Customer {
         this.email = allData.getEmail();
         this.dataNascimento = allData.getBornData(); 
         this.endereco.add(new Endereco(this, allData));
+    }
+
+    public void atualizarFrontend(ClientPutDTO clientPutDTO) {
+        if(clientPutDTO.getNome() != ""){
+            this.nome = clientPutDTO.getNome();
+        }
+
+        if(clientPutDTO.getEmail() != "") {
+            this.email = clientPutDTO.getEmail();
+        }
+
+        if(clientPutDTO.getBornData() != "") {
+            this.dataNascimento = clientPutDTO.getBornData();
+        }
+
     }
 
     public void atualizar(CustomerDto customerDto) {
