@@ -3,6 +3,7 @@ package com.treinamento.crud.controllers;
 
 import java.util.List;
 
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -78,6 +79,14 @@ public class CustomerController {
     @Transactional
     public void atualizarCliente(@RequestBody CustomerDto customerDto) {
        customerService.update(customerDto);
-       
-    } 
+    }
+
+    @PutMapping("/AllDataCustomer/{cpf}")
+    @Transactional
+    @CrossOrigin
+    public void atualizarClienteFrontend(@PathVariable String cpf, @RequestBody  ClientPutDTO clientPutDTO) {
+        System.out.println("");
+        customerService.updateFrontend(cpf, clientPutDTO);
+
+    }
 }
