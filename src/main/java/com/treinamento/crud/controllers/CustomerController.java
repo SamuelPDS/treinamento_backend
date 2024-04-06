@@ -3,6 +3,7 @@ package com.treinamento.crud.controllers;
 
 import java.util.List;
 
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,14 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.treinamento.crud.models.dto.AllData;
-import com.treinamento.crud.models.dto.ClientNameDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 import com.treinamento.crud.models.table.Customer;
 import com.treinamento.crud.service.CustomerService;
 
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 
 @RestController
@@ -40,14 +39,20 @@ public class CustomerController {
     @CrossOrigin("http://localhost:4200/")
     @PostMapping("/AllDataCustomer")
     public ResponseEntity<AllData> enviarTodosDados(@Valid @RequestBody AllData allData) {
-        System.out.println(allData);
-        customerService.saveAll(allData);
-        return ResponseEntity.ok(allData);
+      customerService.saveAll(allData);
+      return ResponseEntity.ok(allData);
     }
 
     @DeleteMapping("{id}") 
         public void deletarCliente(@PathVariable Long id) {
             customerService.delete(id);
+    }
+
+    @CrossOrigin
+    @Transactional
+    @DeleteMapping("/AllDataCustomer/{cpf}")
+        public void deletarClienteFront(@PathVariable String cpf) {
+        customerService.deleteClient(cpf);
     }
 
     @GetMapping("{id}")
@@ -74,6 +79,14 @@ public class CustomerController {
     @Transactional
     public void atualizarCliente(@RequestBody CustomerDto customerDto) {
        customerService.update(customerDto);
-       
-    } 
+    }
+
+    @PutMapping("/AllDataCustomer/{cpf}")
+    @Transactional
+    @CrossOrigin
+    public void atualizarClienteFrontend(@PathVariable String cpf, @RequestBody  ClientPutDTO clientPutDTO) {
+        System.out.println("");
+        customerService.updateFrontend(cpf, clientPutDTO);
+
+    }
 }

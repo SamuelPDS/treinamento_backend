@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.treinamento.crud.models.dto.AllData;
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import com.treinamento.crud.models.dto.CustomerDto;
 
 import jakarta.persistence.CascadeType;
@@ -15,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="customers")
+@Table(name="customers", uniqueConstraints = {@UniqueConstraint(columnNames = {"cpf"})})
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -32,7 +34,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(length = 11)
+    @Column(length = 11, unique=true) //, unique=true
     private String cpf;
 
     @Column(length = 64)
@@ -47,7 +49,6 @@ public class Customer {
     @Column(length = 10)
     private String dataNascimento;
 
-
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<Endereco> endereco = new ArrayList<Endereco>();
 
@@ -58,12 +59,28 @@ public class Customer {
         this.telefone = dto.getTelefone();
     }
 
-    public Customer(AllData allData, Endereco endereco){
+
+    public Customer(AllData allData) {
         this.nome = allData.getName();
         this.cpf = allData.getCpf();
         this.email = allData.getEmail();
-        this.dataNascimento = allData.getBornData();
-        this.endereco.add(endereco);
+        this.dataNascimento = allData.getBornData(); 
+        this.endereco.add(new Endereco(this, allData));
+    }
+
+    public void atualizarFrontend(ClientPutDTO clientPutDTO) {
+        if(clientPutDTO.getNome() != ""){
+            this.nome = clientPutDTO.getNome();
+        }
+
+        if(clientPutDTO.getEmail() != "") {
+            this.email = clientPutDTO.getEmail();
+        }
+
+        if(clientPutDTO.getBornData() != "") {
+            this.dataNascimento = clientPutDTO.getBornData();
+        }
+
     }
 
     public void atualizar(CustomerDto customerDto) {

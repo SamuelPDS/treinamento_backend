@@ -1,6 +1,7 @@
 package com.treinamento.crud.models.table;
 
 import com.treinamento.crud.models.dto.AllData;
+import com.treinamento.crud.models.dto.ClientPutDTO;
 import com.treinamento.crud.models.dto.EnderecoDto;
 
 import jakarta.persistence.Column;
@@ -33,9 +34,6 @@ public class Endereco {
     @Column(length = 64)
     private String nomeRua;
 
-    @Column(length = 5)
-    private int numeroRua;
-
     @Column(length = 6)
     private int numero;
     
@@ -47,7 +45,7 @@ public class Endereco {
 
 
     @ManyToOne
-    @JoinColumn(name = "idCliente")
+    @JoinColumn(name = "id_cliente")
     private Customer customer;
 
 
@@ -64,22 +62,45 @@ public class Endereco {
         this.customer = customer;
     }
 
-    public Endereco(AllData allData) {
+    public Endereco(Customer customer, AllData allData) {
         this.cep = allData.getCep();
         this.nomeRua = allData.getStreet();
-        this.numeroRua = allData.getStreetNum();
+        this.numero = allData.getStreetNum();
         this.nomeBairro = allData.getBairro();
         this.complemento = allData.getComplemento();
+        this.customer = customer;
+    }
+
+    public void Endereco(Customer customer, ClientPutDTO clientPutDTO) {
+        this.cep = clientPutDTO.getCep();
+        this.nomeRua = clientPutDTO.getStreet();
+        this.numero = clientPutDTO.getStreetNum();
+        this.nomeBairro = clientPutDTO.getBairro();
+        this.complemento = clientPutDTO.getComplemento();
+        this.customer = customer;
     }
 
     public void update(EnderecoDto enderecoDto) {
-        if(enderecoDto.getNomeRua() != null)
+       // if(enderecoDto.getNomeRua() != null)
         this.nomeRua = enderecoDto.getNomeRua();
         
-        if(enderecoDto.getNumero() >= 0)
+      //  if(enderecoDto.getNumero() >= 0)
         this.numero = enderecoDto.getNumero();
         
-        if(enderecoDto.getNomeBairro() != null)
+       // if(enderecoDto.getNomeBairro() != null)
         this.nomeBairro = enderecoDto.getNomeBairro();
+    }
+
+    public void update(ClientPutDTO clientPutDTO) {
+        // if(enderecoDto.getNomeRua() != null)
+        this.nomeRua = clientPutDTO.getStreet();
+
+        //  if(enderecoDto.getNumero() >= 0)
+         this.numero = clientPutDTO.getStreetNum();
+
+        // if(enderecoDto.getNomeBairro() != null)
+        this.nomeBairro = clientPutDTO.getBairro();
+
+        this.complemento = clientPutDTO.getComplemento();
     }
 }

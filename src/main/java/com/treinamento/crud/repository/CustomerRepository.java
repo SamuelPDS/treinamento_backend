@@ -12,10 +12,11 @@ import com.treinamento.crud.models.table.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
     // Customer.List<Customer> findById(Long id);
-    @Query
-    Customer findByCpf(String cpf);
 
+    Customer findByCpf(String cpf);
    
     List<Customer> findAllByNome(String nome);
+
+    String deleteByCpf(String cpf);
 
 }
