@@ -69,8 +69,8 @@ public class Customer {
     }
 
     public void atualizarFrontend(ClientPutDTO clientPutDTO) {
-        if(clientPutDTO.getNome() != ""){
-            this.nome = clientPutDTO.getNome();
+        if(clientPutDTO.getName() != ""){
+            this.nome = clientPutDTO.getName();
         }
 
         if(clientPutDTO.getEmail() != "") {

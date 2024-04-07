@@ -55,6 +55,9 @@ public class CustomerService {
     }
 
     public void updateFrontend(String cpf, ClientPutDTO clientPutDTO){
+        System.out.println(cpf);
+        System.out.println(clientPutDTO.getName());
+        System.out.println(clientPutDTO.getEmail());
         Customer customer = customerRepository.findByCpf(cpf);
         customer.atualizarFrontend(clientPutDTO);
 
