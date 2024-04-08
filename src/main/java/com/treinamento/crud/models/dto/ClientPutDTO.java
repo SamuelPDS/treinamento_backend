@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class ClientPutDTO {
 
-    private String nome;
+    private String name;
 
     private String cpf;
 
@@ -33,7 +33,7 @@ public class ClientPutDTO {
     private String complemento;
 
     public void ClientPutDTO(Customer customer) {
-        this.nome = customer.getNome();
+        this.name = customer.getNome();
         this.email = customer.getEmail();
         this.bornData = customer.getDataNascimento();
         if(!customer.getEndereco().isEmpty()) {
